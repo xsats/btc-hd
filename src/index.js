@@ -13,4 +13,4 @@ exports.sha256ripemd160 = utils.sha256ripemd160;
 exports.p2pkhAddress = utils.p2pkhAddress;
 exports.p2shAddress = utils.p2shAddress;
 exports.p2wpkhAddress = utils.p2wpkhAddress;
-exports.retrieveAddresses = utils.retrieveAddresses;
+exports.generateAddresses = utils.generateAddresses;
