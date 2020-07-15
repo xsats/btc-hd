@@ -1,0 +1,12 @@
+{
+  "parser": "babel-eslint",
+  "extends": ["tslint-react", "../../tslint.json"],
+  "linterOptions": {
+    "exclude": ["config/**/*.js", "node_modules/**/*.ts"]
+  },
+  "plugins": ["babel"],
+  "rules": {
+    "no-invalid-this": 0,
+    "babel/no-invalid-this": 1
+  }
+}
