@@ -14,3 +14,5 @@ exports.p2pkhAddress = utils.p2pkhAddress;
 exports.p2shAddress = utils.p2shAddress;
 exports.p2wpkhAddress = utils.p2wpkhAddress;
 exports.generateAddresses = utils.generateAddresses;
+exports.validateAddressOrigin = utils.validateAddressOrigin;
+exports.getAddressType = utils.getAddressType;

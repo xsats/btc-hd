@@ -181,14 +181,7 @@ function p2wpkhAddress(pubKey, testnet) {
 }
 exports.p2wpkhAddress = p2wpkhAddress;
 
-function generateAddresses(
-  extendedKey,
-  path,
-  addressType,
-  indexstart,
-  indexend,
-  network
-) {
+function generateAddresses(extendedKey, path, indexstart, indexend, network) {
   // TODO: change so when ypub is provided, generate p2sh '3' addresses
   if (
     extendedKey.substring(0, 4) === "ypub" ||
@@ -229,3 +222,59 @@ function generateAddresses(
   return addresses;
 }
 exports.generateAddresses = generateAddresses;
+
+function validateAddressOrigin(
+  extendedKey,
+  address,
+  path,
+  addressType,
+  index,
+  network
+) {
+  if (
+    extendedKey.substring(0, 4) === "ypub" ||
+    extendedKey.substring(0, 4) === "zpub"
+  ) {
+    extendedKey = xpubConvertor.changeVersionBytes(extendedKey, "xpub");
+  } else if (extendedKey.substring(0, 4) !== "xpub") {
+    throw new Error(`Unsupported xpub version ${extendedKey}`);
+  }
+
+  let testnet = network === "mainnet" ? false : true;
+  var myWallet = HDKey.fromExtendedKey(extendedKey);
+
+  const node = myWallet.derive(path + index);
+  const pubKey = node.publicExtendedKey;
+
+  let bs58decoded = bs58.decode(pubKey);
+  let base58hex = bs58decoded.toString("hex");
+
+  // console.log("BASE58-HEX: " + base58hex);
+  let compressedPubkey = base58hex.substring(base58hex.length - 66);
+  // console.log("COMPRESSED PUBKEY: " + compressedPubkey);
+
+  let generatedAddress =
+    addressType === "segwit"
+      ? p2wpkhAddress(compressedPubkey, testnet)
+      : addressType === "legacy"
+      ? p2pkhAddress(compressedPubkey, testnet)
+      : addressType === "p2sh"
+      ? p2shAddress(compressedPubkey, testnet)
+      : null;
+  // console.log("ADDRESS: " + address);
+  return generatedAddress === address;
+}
+exports.validateAddressOrigin = validateAddressOrigin;
+
+function getAddressType(address) {
+  if (address.substring(0, 1) === "1") {
+    return "legacy";
+  } else if (address.substring(0, 1) === "3") {
+    return "p2sh";
+  } else if (address.substring(0, 3) === "bc1") {
+    return "segwit";
+  } else {
+    return "invalid";
+  }
+}
+exports.getAddressType = getAddressType;
