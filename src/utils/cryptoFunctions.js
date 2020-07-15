@@ -181,7 +181,14 @@ function p2wpkhAddress(pubKey, testnet) {
 }
 exports.p2wpkhAddress = p2wpkhAddress;
 
-function generateAddresses(extendedKey, path, indexstart, indexend, network) {
+function generateAddresses(
+  extendedKey,
+  path,
+  addressType,
+  indexstart,
+  indexend,
+  network
+) {
   // TODO: change so when ypub is provided, generate p2sh '3' addresses
   if (
     extendedKey.substring(0, 4) === "ypub" ||
