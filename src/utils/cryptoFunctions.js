@@ -181,7 +181,7 @@ function p2wpkhAddress(pubKey, testnet) {
 }
 exports.p2wpkhAddress = p2wpkhAddress;
 
-function retrieveAddresses(
+function generateAddresses(
   extendedKey,
   path,
   addressType,
@@ -228,4 +228,4 @@ function retrieveAddresses(
   }
   return addresses;
 }
-exports.retrieveAddresses = retrieveAddresses;
+exports.generateAddresses = generateAddresses;

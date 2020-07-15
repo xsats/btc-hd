@@ -2,7 +2,7 @@
   "name": "btc-hd",
   "version": "0.0.1",
   "description": "Barebones Bitcoin HD wallet derivation tools written in Javascript",
-  "main": "index.ts",
+  "main": "./src/index.js",
   "author": "Ed Ball <emb4111@gmail.com>",
   "license": "MIT",
   "dependencies": {
