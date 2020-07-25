@@ -181,6 +181,7 @@ function p2wpkhAddress(pubKey, testnet) {
 }
 exports.p2wpkhAddress = p2wpkhAddress;
 
+// TODO change to JSON data
 function generateAddresses(
   extendedKey,
   path,
@@ -203,7 +204,7 @@ function generateAddresses(
   let testnet = network === "mainnet" ? false : true;
   var myWallet = HDKey.fromExtendedKey(extendedKey);
 
-  let addresses = {};
+  let addresses = [];
   for (let i = indexstart; i < indexend; i++) {
     const node = myWallet.derive(path + i);
     const pubKey = node.publicExtendedKey;
@@ -224,7 +225,7 @@ function generateAddresses(
         ? p2shAddress(compressedPubkey, testnet)
         : null;
     // console.log("ADDRESS: " + address);
-    addresses[`m/0/${i}`] = address;
+    addresses.push({ derivationPath: path + i, address: address });
   }
   return addresses;
 }
