@@ -1,4 +1,5 @@
 "use strict";
+var Buffer = require("safe-buffer").Buffer;
 
 var bs58checkBase = require("./base");
 var sha256 = require("crypto-js/sha256");

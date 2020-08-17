@@ -3,6 +3,7 @@
   This script uses version bytes as described in SLIP-132
   https://github.com/satoshilabs/slips/blob/master/slip-0132.md
 */
+var Buffer = require("safe-buffer").Buffer;
 var b58 = require("../bs58check");
 
 const prefixes = new Map([
